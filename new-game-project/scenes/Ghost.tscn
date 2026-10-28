@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/Ghost.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/GhostEnemySprite_strip2.png" id="2"]
+
+[sub_resource type="CapsuleShape2D" id="GhostShape"]
+radius = 19.0
+height = 40.0
+
+[node name="Ghost" type="Area2D"]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1")
+fall_speed = 88.0
+score_value = 20
+health = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("GhostShape")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2")
+

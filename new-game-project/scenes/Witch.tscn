@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/Witch.gd" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/MagicBolt.tscn" id="2"]
+[ext_resource type="Texture2D" path="res://assets/PlayerSprite_strip4.png" id="4"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_player"]
+radius = 18.0
+height = 46.0
+
+[node name="Witch" type="CharacterBody2D" groups=["player"]]
+collision_layer = 1
+collision_mask = 0
+script = ExtResource("1")
+bolt_scene = ExtResource("2")
+player_texture = ExtResource("4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_player")
+
+[node name="Muzzle" type="Marker2D" parent="."]
+position = Vector2(42, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="ShootTimer" type="Timer" parent="."]
+wait_time = 0.32
+

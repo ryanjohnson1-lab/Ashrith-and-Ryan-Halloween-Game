@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/MagicBolt.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/AttackSprite_strip4.png" id="2"]
+
+[sub_resource type="CircleShape2D" id="BoltShape"]
+radius = 7.0
+
+[node name="MagicBolt" type="Area2D"]
+collision_layer = 2
+collision_mask = 12
+script = ExtResource("1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("BoltShape")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+rect = Rect2(-8, -16, 16, 32)
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_screen_exited"]

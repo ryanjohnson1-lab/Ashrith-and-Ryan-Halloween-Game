@@ -1,0 +1,159 @@
+[gd_scene load_steps=9 format=3]
+
+[ext_resource type="Script" path="res://scripts/Main.gd" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/Witch.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://scenes/Pumpkin.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://scenes/Ghost.tscn" id="4"]
+[ext_resource type="PackedScene" path="res://scenes/CandyCorn.tscn" id="5"]
+[ext_resource type="Texture2D" path="res://assets/GameBackground_strip2.png" id="6"]
+
+[sub_resource type="SystemFont" id="SystemFont_pixel"]
+font_names = PackedStringArray("Cascadia Mono")
+antialiasing = 0
+
+[sub_resource type="Theme" id="Theme_pixel"]
+default_font = SubResource("SystemFont_pixel")
+default_font_size = 18
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1")
+pumpkin_scene = ExtResource("3")
+ghost_scene = ExtResource("4")
+candy_scene = ExtResource("5")
+witch_scene = ExtResource("2")
+
+[node name="Background" type="Sprite2D" parent="."]
+texture = ExtResource("6")
+hframes = 2
+frame = 1
+centered = false
+scale = Vector2(1.251221, 1.2)
+
+[node name="BackgroundNext" type="Sprite2D" parent="."]
+position = Vector2(1280, 0)
+texture = ExtResource("6")
+hframes = 2
+frame = 1
+centered = false
+scale = Vector2(1.251221, 1.2)
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="Witch" parent="." instance=ExtResource("2")]
+position = Vector2(105, 360)
+
+[node name="SpawnTimer" type="Timer" parent="."]
+wait_time = 2.5
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="ScoreLabel" type="Label" parent="HUD"]
+theme = SubResource("Theme_pixel")
+offset_left = 24.0
+offset_top = 18.0
+offset_right = 340.0
+offset_bottom = 58.0
+theme_override_colors/font_color = Color(1, 0.62, 0.2, 1)
+theme_override_font_sizes/font_size = 26
+text = "SCORE  000000"
+
+[node name="LivesContainer" type="HBoxContainer" parent="HUD"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -148.0
+offset_top = 18.0
+offset_right = -24.0
+offset_bottom = 58.0
+alignment = 2
+theme_override_constants/separation = 6
+
+[node name="GameOverOverlay" type="ColorRect" parent="HUD"]
+theme = SubResource("Theme_pixel")
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.025, 0.012, 0.07, 0.88)
+
+[node name="ResultLabel" type="Label" parent="HUD/GameOverOverlay"]
+anchors_preset = 15
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -320.0
+offset_top = -110.0
+offset_right = 320.0
+offset_bottom = 110.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0.62, 0.2, 1)
+theme_override_font_sizes/font_size = 30
+horizontal_alignment = 1
+vertical_alignment = 1
+text = "FINAL SCORE  000000\nPRESS ENTER TO RESTART"
+
+[node name="GameOverAudio" type="AudioStreamPlayer" parent="."]
+
+[node name="PauseOverlay" type="ColorRect" parent="HUD"]
+theme = SubResource("Theme_pixel")
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.025, 0.012, 0.07, 0.86)
+
+[node name="PausePanel" type="ColorRect" parent="HUD/PauseOverlay"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -210.0
+offset_top = -170.0
+offset_right = 210.0
+offset_bottom = 170.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.11, 0.06, 0.2, 1)
+
+[node name="PauseTitle" type="Label" parent="HUD/PauseOverlay/PausePanel"]
+offset_left = 20.0
+offset_top = 30.0
+offset_right = 400.0
+offset_bottom = 90.0
+theme_override_colors/font_color = Color(1, 0.62, 0.2, 1)
+theme_override_font_sizes/font_size = 36
+horizontal_alignment = 1
+text = "PAUSED"
+
+[node name="PauseHint" type="Label" parent="HUD/PauseOverlay/PausePanel"]
+offset_left = 20.0
+offset_top = 95.0
+offset_right = 400.0
+offset_bottom = 135.0
+theme_override_colors/font_color = Color(0.78, 0.85, 1, 1)
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 1
+text = "Press F to resume"
+
+[node name="ResumeButton" type="Button" parent="HUD/PauseOverlay/PausePanel"]
+offset_left = 110.0
+offset_top = 155.0
+offset_right = 310.0
+offset_bottom = 205.0
+theme_override_font_sizes/font_size = 20
+text = "Resume"
+
+[node name="RestartButton" type="Button" parent="HUD/PauseOverlay/PausePanel"]
+offset_left = 110.0
+offset_top = 225.0
+offset_right = 310.0
+offset_bottom = 275.0
+theme_override_font_sizes/font_size = 20
+text = "Restart"
